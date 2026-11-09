@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="brand">#111111</color>
-    <color name="accent">#4F46E5</color>
+    <color name="screen_bg">#08111F</color>
+    <color name="card_bg">#111E2E</color>
+    <color name="card_alt">#1B2B3E</color>
+    <color name="accent">#35D0BA</color>
+    <color name="text_primary">#F3F7FC</color>
+    <color name="text_muted">#91A2B7</color>
 </resources>
