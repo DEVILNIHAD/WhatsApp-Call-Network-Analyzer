@@ -18,12 +18,20 @@ data class PacketEvent(
 
 object AnalyzerStore {
     val events = CopyOnWriteArrayList<PacketEvent>()
-    @Volatile var running = false
-    @Volatile var packets = 0L
-    @Volatile var bytes = 0L
+
+    @Volatile
+    var running = false
+
+    @Volatile
+    var packets = 0L
+
+    @Volatile
+    var bytes = 0L
 
     fun add(e: PacketEvent) {
-        if (events.size >= 5000) events.removeAt(0)
+        if (events.size >= 5000) {
+            events.removeAt(0)
+        }
         events.add(e)
         packets++
         bytes += e.bytes
@@ -37,16 +45,16 @@ object AnalyzerStore {
 
     fun csv(): String {
         val sb = StringBuilder("time,protocol,src,dst,srcPort,dstPort,bytes,note\n")
-        val fmt = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
         events.forEach {
-            sb.append(fmt.format(Date(it.time))).append(',')
-              .append(it.protocol).append(',')
-              .append(it.src).append(',')
-              .append(it.dst).append(',')
-              .append(it.srcPort).append(',')
-              .append(it.dstPort).append(',')
-              .append(it.bytes).append(',')
-              .append(it.note.replace(",", ";")).append('\n')
+            sb.append(format.format(Date(it.time))).append(',')
+                .append(it.protocol).append(',')
+                .append(it.src).append(',')
+                .append(it.dst).append(',')
+                .append(it.srcPort).append(',')
+                .append(it.dstPort).append(',')
+                .append(it.bytes).append(',')
+                .append(it.note.replace(",", ";")).append('\n')
         }
         return sb.toString()
     }
